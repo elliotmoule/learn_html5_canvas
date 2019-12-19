@@ -12,7 +12,7 @@ window.onload = function () {
     context.strokeStyle = "green";
     context.lineWidth = 10;
     context.fillStyle = "green";
-    context.arc(450, 300, 150, 135 * radian, 360 * radian, false);
+    context.arc(450, 300, 150, 0 * radian, 360 * radian, false);
     context.stroke();
     context.fill();
 }
