@@ -158,6 +158,12 @@ BarChart.prototype.drawChart = function () {
 
     // Horizontal Labels
     chart.drawHorizontalLabels();
+
+    // Horizontal Guidelines
+    chart.drawHorizontalGuidelines();
+
+    // Vertical Guidelines
+    chart.drawVerticalGuidelines();
 };
 
 BarChart.prototype.drawVerticalAxis = function () {
@@ -228,5 +234,58 @@ BarChart.prototype.drawHorizontalLabels = function () {
         var horizontalLabelY = chart.height - chart.verticalMargin + chart.verticalMargin / chart.axisRatio;
 
         chart.context.fillText(chart.labels[i], horizontalLabelX, horizontalLabelY);
+    }
+};
+
+BarChart.prototype.drawHorizontalGuidelines = function () {
+    // Base
+    var chart = this;
+
+    // Specifications
+    chart.context.strokeStyle = chart.guidelineColor;
+    chart.context.lineWidth = chart.guidelineWidth;
+
+    // Scale Values
+    var scaledVerticalLabelFrequency = (chart.verticalAxisWidth / chart.verticalUpperBound) * chart.verticalLabelFrequency;
+
+    // Draw Guidelines
+    for (let i = 0; i <= chart.itemsNum; i++) {
+        // Start point coordinates
+        var horizontalGuidelineStartX = chart.horizontalMargin;
+        var horizontalGuidelineStartY = chart.verticalMargin + i * scaledVerticalLabelFrequency;
+    
+        // End point coordinates
+        var horizontalGuidelineEndX = chart.horizontalMargin + chart.horizontalAxisWidth;
+        var horizontalGuidelineEndY = chart.verticalMargin + i * scaledVerticalLabelFrequency;
+    
+        chart.context.beginPath();
+        chart.context.moveTo(horizontalGuidelineStartX, horizontalGuidelineStartY);
+        chart.context.lineTo(horizontalGuidelineEndX, horizontalGuidelineEndY);
+        chart.context.stroke();
+    }
+};
+
+BarChart.prototype.drawVerticalGuidelines = function () {
+    // Base
+    var chart = this;
+
+    // Specifications
+    chart.context.strokeStyle = chart.guidelineColor;
+    chart.context.lineWidth = chart.guidelineWidth;
+
+    // Draw Labels
+    for (let i = 0; i <= chart.itemsNum; i++) {
+        // Start point coordinates
+        var verticalGuidelineStartX = chart.horizontalMargin + i * chart.horizontalLabelFrequency;
+        var verticalGuidelineStartY = chart.height - chart.verticalMargin;
+    
+        // End point coordinates
+        var verticalGuidelineEndX = chart.horizontalMargin + i * chart.horizontalLabelFrequency;
+        var verticalGuidelineEndY = chart.verticalMargin;
+
+        chart.context.beginPath();
+        chart.context.moveTo(verticalGuidelineStartX, verticalGuidelineStartY);
+        chart.context.lineTo(verticalGuidelineEndX, verticalGuidelineEndY);
+        chart.context.stroke();
     }
 };
