@@ -2,10 +2,10 @@
  * 
  * bar.js
  * simple, elegant, bar chart library
- * 30/12/2019 - version 1.0
+ * 02/01/2020 - version 1.0
  * https://github.com/elliotmoule/learn_html5_canvas
  * 
- * Copyright 2017 Elliot Moule
+ * Copyright 2020 Elliot Moule
  * Released under the MIT License
  * https://github.com/elliotmoule/learn_html5_canvas/blob/master/LICENSE
  * 
@@ -164,6 +164,9 @@ BarChart.prototype.drawChart = function () {
 
     // Vertical Guidelines
     chart.drawVerticalGuidelines();
+
+    // Bars
+    chart.drawBars();
 };
 
 BarChart.prototype.drawVerticalAxis = function () {
@@ -289,3 +292,44 @@ BarChart.prototype.drawVerticalGuidelines = function () {
         chart.context.stroke();
     }
 };
+
+BarChart.prototype.drawBars = function () {
+    // Base
+    var chart = this;
+
+    for (let i = 0; i < chart.itemsNum; i++) {
+        var color = chart.createRandomRGBColor();
+        var fillOpacity = '0.3';
+        var fillColor = 'rgba('+ color.r + ', ' + color.g + ', ' + color.b + ', ' + fillOpacity + ')';
+        var borderColor = 'rgba('+ color.r + ', ' + color.g + ', ' + color.b + ')';
+
+
+        chart.context.beginPath();
+        
+        var barX = chart.horizontalMargin + i * chart.horizontalLabelFrequency + chart.horizontalLabelFrequency / chart.axisRatio;
+        var barY = chart.height - chart.verticalMargin;
+
+        var barWidth = chart.horizontalLabelFrequency - 2 * chart.horizontalLabelFrequency / chart.axisRatio;
+        var barHeight = -1 * chart.verticalAxisWidth * chart.values[i] / chart.maxValue;
+
+        chart.context.fillStyle = fillColor;
+        chart.context.strokeStyle = borderColor;
+        chart.context.rect(barX, barY, barWidth, barHeight);
+        chart.context.stroke();
+        chart.context.fill();
+    }
+};
+
+BarChart.prototype.createRandomRGBColor = function () {
+    var red = getRandomInt(0, 257);
+    var green = getRandomInt(0, 257);
+    var blue = getRandomInt(0, 257);
+
+    return {r: red, g: green, b: blue};
+};
+
+function getRandomInt(min,max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;   // The maximum is exclusive and the minimum is inclusive.
+}
