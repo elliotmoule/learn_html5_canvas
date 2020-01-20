@@ -1,0 +1,8 @@
+#physics-momentum-one-axis-canvas {
+    border: 1px solid black;
+    /* Centre-align */
+    display: block;
+    width: 900px;
+    height: 600px;
+    margin: 0 auto;
+}
