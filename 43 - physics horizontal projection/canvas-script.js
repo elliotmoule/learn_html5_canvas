@@ -1,7 +1,7 @@
 
 window.onload = function () {
     // Definitions
-    var canvas  = document.getElementById("physics-intro-canvas");
+    var canvas  = document.getElementById("physics-h-projection-canvas");
     var context = canvas.getContext("2d");
 
     var g = 0.098;       // gravity

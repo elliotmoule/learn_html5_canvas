@@ -1,7 +1,7 @@
 
 window.onload = function () {
     // Definitions
-    var canvas  = document.getElementById("physics-intro-canvas");
+    var canvas  = document.getElementById("physics-velocity-canvas");
     var context = canvas.getContext("2d");
 
     var ball = new Ball(30, 'red');
